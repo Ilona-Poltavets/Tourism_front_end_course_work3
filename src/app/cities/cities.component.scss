@@ -1,0 +1,38 @@
+.main{
+  margin-top: 55px;
+  padding: 10px;
+}
+/********Table********/
+img.photo {
+  max-width: 300px;
+}
+
+table {
+  width: 100%;
+}
+
+.line {
+  border-bottom: black 1px solid;
+}
+
+thead {
+  background-color: #718096;
+  color: white;
+}
+
+.table_row {
+  color: black;
+  font-size: 30px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.add_btn {
+  width: 100px;
+  margin: 10px 0 10px 0;
+}
+
+.selected{
+  border-left: red 5px solid;
+  border-right: red 5px solid;
+}

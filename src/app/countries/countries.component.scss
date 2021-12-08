@@ -1,0 +1,61 @@
+.main {
+  margin-top: 55px;
+  padding: 10px;
+}
+
+div.list {
+  display: inline-block;
+  vertical-align: top;
+  horiz-align: center;
+}
+
+div.tile {
+  display: block;
+  min-height: 450px;
+  width: 310px;
+  padding: 20px;
+}
+
+div.borders{
+  border: 1px lightgray solid;
+}
+
+div.selected{
+  width: 320px;
+  box-shadow: 0 0 20px black;
+}
+
+div.tile:hover {
+  width: 320px;
+  box-shadow: 0 0 10px black;
+}
+
+div.preview:hover {
+  width: 280px;
+  height: 300px;
+}
+
+div.preview {
+  width: 260px;
+  height: 300px;
+}
+
+div.preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+a {
+  color: black;
+}
+button.buttonAdd{
+  width: 50%;
+  display: block;
+  margin: 30px auto;
+}
+div.addBlock{
+  width:50%;
+  margin-left: auto;
+  margin-right: auto;
+}

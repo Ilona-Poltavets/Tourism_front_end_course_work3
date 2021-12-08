@@ -1,0 +1,35 @@
+<div class="main">
+  <div class="container-xxl">
+    <div class="list" *ngFor="let country of countries" (click)="selectElement(country.id)"
+         [class.selected]="country.id==selectedId" [class.borders]="!(country.id==selectedId)">
+      <div class="tile">
+        <div class="preview"><img src="{{country.flag}}"></div>
+        <table>
+          <tr>
+            <td>Name:</td>
+            <td>{{country.name}}</td>
+          </tr>
+          <tr>
+            <td>Capital:</td>
+            <td>{{country.capital}}</td>
+          </tr>
+          <tr>
+            <td>Currency:</td>
+            <td>{{country.currency}}</td>
+          </tr>
+          <tr *ngIf="country.id==selectedId">
+            <td colspan="2">{{country.description}}</td>
+          </tr>
+          <tr *ngIf="country.id==selectedId">
+            <td><button class="btn btn-outline-info" (click)="editCountry()">Edit</button></td>
+            <td><button class="btn btn-danger" (click)="deleteCountry()">Delete</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <button (click)="addCountry()" class="btn btn-outline-secondary buttonAdd">Add</button>
+  <div class="addBlock">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="card">
+  <div class="card-header text-white bg-dark">
+    <h1 class="cardTitle">Edit city</h1>
+  </div>
+  <div class="card-body">
+    <form enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="editCity()">
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid':!isValid('name')}" name="name" formControlName="name" value="{{city.name}}">
+        </div>
+        <div class="invalid-feedback" *ngIf="!isValid('name','required')">
+          The field must be filled
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Country:</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" name="countryId" formControlName="countryId" value="{{city.countryId}}">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Founded:</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" name="founded" formControlName="founded" value="{{city.founded}}">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Popular places:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="popularPlaces" formControlName="popularPlaces" value="{{city.popularPlaces}}">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Is capital:</label>
+        <div class="col-sm-10">
+          <input type="checkbox" class="" name="isCapital" formControlName="isCapital" value="{{city.isCapital}}">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Description:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="description" formControlName="description" value="{{city.description}}">
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Photo:</label>
+        <div class="col-sm-10">
+          <input type="file" class="form-control" name="photo">
+        </div>
+      </div>
+      <button class="btn btn-success alignCenter" [disabled]="form.invalid">Edit</button>
+    </form>
+  </div>
+</div>
