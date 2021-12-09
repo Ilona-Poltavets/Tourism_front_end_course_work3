@@ -23,7 +23,6 @@ export class CountriesComponent implements OnInit {
   }
 
   selectElement(countryId: number) {
-    this.router.navigate([countryId], {relativeTo: this.activatedRoute});
     this.selectedId = countryId;
   }
 
@@ -39,7 +38,7 @@ export class CountriesComponent implements OnInit {
   }
 
   deleteCountry() {
-    let country = this.countryService.getCountry(this.selectedId);
     this.countryService.deleteCountry(this.selectedId).subscribe();
+    document.location.href = "http://localhost:4200/countries";
   }
 }

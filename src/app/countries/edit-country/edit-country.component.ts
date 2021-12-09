@@ -10,14 +10,14 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./edit-country.component.scss']
 })
 export class EditCountryComponent implements OnInit {
-
-  country: Country={
-    id:0,
-    name:"",
-    description:"",
-    capital:"",
-    currency:"",
-    flag:"assets/no_photo.jpg",
+  form: FormGroup = new FormGroup({});
+  country: Country = {
+    id: 0,
+    name: "",
+    description: "",
+    capital: "",
+    currency: "",
+    flag: "assets/no_photo.jpg",
   }
 
   constructor(private countryService: CountryService, private activatedRoute: ActivatedRoute) {
@@ -25,22 +25,42 @@ export class EditCountryComponent implements OnInit {
 
   ngOnInit(): void {
     const countryId = this.activatedRoute.snapshot.params['id'];
-    const elem=this.countryService.getCountry(countryId).subscribe(
-      elem=>{
-        this.country.id=elem.id;
-        this.country.name=elem.name;
-        this.country.description=elem.description;
-        this.country.capital=elem.capital;
-        this.country.currency=elem.currency;
-        this.country.flag=elem.flag;
+    const elem = this.countryService.getCountry(countryId).subscribe(
+      elem => {
+        this.country = elem;
+        this.form = new FormGroup({
+          'name': new FormControl(this.country.name, Validators.required),
+          'description': new FormControl(this.country.description, Validators.maxLength(255)),
+          'capital': new FormControl(this.country.capital),
+          'currency': new FormControl(this.country.currency),
+          //'photo':new FormControl("assets/no_photo.jpg"),
+        })
       }
     );
   }
 
-  editCountry(form:any) {
-    this.countryService.editCountry(
-      this.country).subscribe(
-        data=>this.countryService.countries=data
-    )
+  editCountry() {
+    this.countryService.editCountry({
+      id: this.country.id,
+      name: this.form.value.name,
+      description: this.form.value.description,
+      capital: this.form.value.capital,
+      currency: this.form.value.currency,
+      flag: this.country.flag,
+    }).subscribe(data => this.countryService.countries = data);
+    document.location.href = "http://localhost:4200/countries";
+  }
+
+  isValid(componentName?: string, rule?: string): boolean {
+    if (!componentName) {
+      return this.form.valid;
+    } else {
+      const component: AbstractControl = this.form.get(componentName)!;
+      if (!rule) {
+        return component.valid || component.untouched;
+      } else {
+        return !component.hasError(rule) || component.untouched;
+      }
+    }
   }
 }

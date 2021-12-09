@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {City} from "../../City";
 import {CityService} from "../../services/city.service";
+import {CountryService} from "../../services/country.service";
+import {Country} from "../../Country";
 
 @Component({
   selector: 'app-add-city',
@@ -11,9 +13,10 @@ import {CityService} from "../../services/city.service";
 export class AddCityComponent implements OnInit {
 
   city!: City;
+  countries: Country[] = [];
   form: FormGroup = new FormGroup({});
 
-  constructor(private cityServices: CityService) {
+  constructor(private cityServices: CityService, private countryService: CountryService) {
   }
 
   ngOnInit(): void {
@@ -21,10 +24,13 @@ export class AddCityComponent implements OnInit {
       'name': new FormControl("", Validators.required),
       'description': new FormControl("", Validators.maxLength(255)),
       'popularPlaces': new FormControl(),
-      'isCapital': new FormControl(),
+      'isCapital': new FormControl(false),
       'founded': new FormControl(),
       'countryId': new FormControl(),
       'photo': new FormControl(),
+    })
+    this.countryService.getCountries().subscribe(data => {
+      this.countries = data;
     })
   }
 
@@ -39,6 +45,7 @@ export class AddCityComponent implements OnInit {
       countryId: this.form.value.countryId,
       img: "assets/no_photo.jpg",
     }).subscribe(data => this.cityServices.cities = data);
+    document.location.href = "http://localhost:4200/cities";
   }
 
   isValid(componentName?: string, rule?: string): boolean {

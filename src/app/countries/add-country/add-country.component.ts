@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Country} from "../../Country";
 import {CountryService} from "../../services/country.service";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -11,30 +11,32 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class AddCountryComponent implements OnInit {
 
-  country!:Country;
+  country!: Country;
   form: FormGroup = new FormGroup({});
 
-  constructor(private countryService:CountryService) { }
+  constructor(private countryService: CountryService) {
+  }
 
   ngOnInit(): void {
-    this.form=new FormGroup({
-      'name':new FormControl("",Validators.required),
-      'description':new FormControl("",Validators.maxLength(255)),
-      'capital':new FormControl(),
-      'currency':new FormControl(),
-      'photo':new FormControl("assets/no_photo.jpg"),
+    this.form = new FormGroup({
+      'name': new FormControl("", Validators.required),
+      'description': new FormControl("", Validators.maxLength(255)),
+      'capital': new FormControl(),
+      'currency': new FormControl(),
+      //'photo':new FormControl("assets/no_photo.jpg"),
     })
   }
 
-  addCountry(){
+  addCountry() {
     this.countryService.addCountry({
-      id:0,
-      name:this.form.value.name,
-      description:this.form.value.description,
-      capital:this.form.value.capital,
-      currency:this.form.value.currency,
-      flag:this.form.value.photo,
-    }).subscribe(data=>this.countryService.countries=data);
+      id: 0,
+      name: this.form.value.name,
+      description: this.form.value.description,
+      capital: this.form.value.capital,
+      currency: this.form.value.currency,
+      flag: "assets/no_photo.jpg",
+    }).subscribe(data => this.countryService.countries = data);
+    document.location.href = "http://localhost:4200/countries";
   }
 
   isValid(componentName?: string, rule?: string): boolean {

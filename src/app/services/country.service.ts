@@ -3,8 +3,6 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Country} from "../Country";
 
-const baseUrl = "http://127.0.0.1:8000"
-
 @Injectable({
   providedIn: 'root'
 })

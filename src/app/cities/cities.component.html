@@ -1,37 +1,40 @@
 <div class="container-xl main">
   <div class="form-group">
-    <select class="browser-default custom-select mySelect" name="city_country_filter" id="city_country_filter">
+    <select class="browser-default custom-select mySelect form-select" name="city_country_filter" id="city_country_filter">
       <option value="0">All countries</option>
+      <ng-container *ngFor="let country of countries">
+        <option value="{{country.id}}" (click)="selectedCountry=country">{{country.name}}</option>
+      </ng-container>
     </select>
   </div>
-  <button (click)="addCity()" class="btn btn-outline-secondary buttonAdd">Add</button>
+  <button (click)="addCity()" class="btn btn-outline-secondary add_btn">Add</button>
   <table>
     <thead>
     <tr align="center" class="bg-secondary">
-      <th width="50">Country</th>
+      <!--th width="50">Country</th-->
       <th width="300">Img</th>
       <th>Name</th>
       <th>Founded</th>
       <th>The Most Famous Attraction</th>
       <th>Description</th>
       <th>Is capital</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
     <ng-container *ngFor="let city of cities">
-      <tr align="center" (click)="selectElement(city.id)" [class.selected]="city.id==selectedId">
-        <td>{{city.countryId}}</td>
-        <td rowspan="2"><img class="photo" src="{{city.img}}"></td>
+      <tr align="center" (click)="selectElement(city.id)" [class.selected]="city.id==selectedId" class="tile line">
+        <!--td>{{city.countryId}}</td-->
+        <td><img class="photo" src="{{city.img}}"></td>
         <td>{{city.name}}</td>
         <td>{{city.founded}}</td>
         <td>{{city.popularPlaces}}</td>
         <td>{{city.description}}</td>
         <td>{{city.isCapital}}</td>
-      </tr>
-      <tr align="center" class="line" [class.selected]="city.id==selectedId">
-        <td colspan="6" height="50px">
+        <td>
           <div class="btn-group" *ngIf="city.id==selectedId">
-            <button class="btn btn-outline-info float-right" (click)="editCity()" width="150px">Edit</button>
+            <button class="btn btn-info float-right" (click)="editCity()" width="150px">Edit</button>
+            <button class="btn btn-danger" (click)="deleteCity()">Delete</button>
           </div>
         </td>
       </tr>

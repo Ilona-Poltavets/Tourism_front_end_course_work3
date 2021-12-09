@@ -3,48 +3,44 @@
     <h1 class="cardTitle">Edit country</h1>
   </div>
   <div class="card-body">
-    <form enctype="multipart/form-data">
+    <form enctype="multipart/form-data" [formGroup]="form" (ngSubmit)="editCountry()">
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Name:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" [class.is-invalid]="!(name.valid)" placeholder="name"
-                 [(ngModel)]="country.name" name="name" maxlength="20" #name="ngModel">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid':!isValid('name')}" name="name" formControlName="name">
         </div>
-        <div class="invalid-feedback">
+        <div class="invalid-feedback" *ngIf="!isValid('name','required')">
           The field must be filled
         </div>
       </div>
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Description:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" [class.is-invalid]="!(description.valid)" placeholder="description"
-                 [(ngModel)]="country.description" name="name" maxlength="20" #description="ngModel">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid':!isValid('description')}" name="description" formControlName="description">
         </div>
-        <div class="invalid-feedback">
+        <div class="invalid-feedback" *ngIf="!isValid('description','maxlength')">
           The maximum length is 255
         </div>
       </div>
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Capital:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" [class.is-invalid]="!(capital.valid)" placeholder="capital"
-                 [(ngModel)]="country.capital" name="capital" maxlength="20" #capital="ngModel">
+          <input type="text" class="form-control" name="capital" formControlName="capital">
         </div>
       </div>
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Currency:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" [class.is-invalid]="!(currency.valid)" placeholder="currency"
-                 [(ngModel)]="country.currency" name="name" maxlength="20" #currency="ngModel">
+          <input type="text" class="form-control" name="currency" formControlName="currency">
         </div>
       </div>
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Flag:</label>
         <div class="col-sm-10">
-          <input type="file" class="form-control" name="photo">
+          <input type="file" class="form-control" name="photo" formControlName="photo">
         </div>
       </div>
-      <button class="btn btn-success alignCenter">Edit</button>
+      <button class="btn btn-success alignCenter" [disabled]="form.invalid">Edit</button>
     </form>
   </div>
 </div>

@@ -3,6 +3,8 @@ import {City} from "../../City";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CityService} from "../../services/city.service";
 import {ActivatedRoute} from "@angular/router";
+import {Country} from "../../Country";
+import {CountryService} from "../../services/country.service";
 
 @Component({
   selector: 'app-edit-city',
@@ -11,9 +13,10 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class EditCityComponent implements OnInit {
   city!: City;
+  countries: Country[] = [];
   form: FormGroup = new FormGroup({});
 
-  constructor(private cityServices: CityService, private activatedRoute: ActivatedRoute) {
+  constructor(private cityServices: CityService, private activatedRoute: ActivatedRoute, private countryService: CountryService) {
   }
 
   ngOnInit(): void {
@@ -32,10 +35,12 @@ export class EditCityComponent implements OnInit {
           }
         );
       })
+    this.countryService.getCountries().subscribe(data => {
+      this.countries = data;
+    })
   }
 
   editCity() {
-    console.log(this.city)
     this.cityServices.editCity({
       id:this.city.id,
       name:this.form.value.name,
@@ -44,8 +49,9 @@ export class EditCityComponent implements OnInit {
       isCapital:this.form.value.isCapital,
       founded:this.form.value.founded,
       countryId:this.form.value.countryId,
-      img:this.form.value.img,
-    })
+      img:this.city.img,
+    }).subscribe(data => this.cityServices.cities = data);
+    document.location.href = "http://localhost:4200/cities";
   }
 
   isValid(componentName?: string, rule?: string): boolean {

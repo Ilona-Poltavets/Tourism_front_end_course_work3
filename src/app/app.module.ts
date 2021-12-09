@@ -8,7 +8,6 @@ import { HomeComponent } from './home/home.component';
 import {HttpClientModule} from "@angular/common/http";
 import { CitiesComponent } from './cities/cities.component';
 import { AddCountryComponent } from './countries/add-country/add-country.component';
-import { CountryComponent } from './countries/country/country.component';
 import {CountryRoutingModule} from "./countries/country-routing/country-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EditCountryComponent } from './countries/edit-country/edit-country.component';
@@ -23,7 +22,6 @@ import { EditCityComponent } from './cities/edit-city/edit-city.component';
     HomeComponent,
     CitiesComponent,
     AddCountryComponent,
-    CountryComponent,
     EditCountryComponent,
     AddCityComponent,
     EditCityComponent

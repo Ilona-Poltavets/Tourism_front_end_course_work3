@@ -3,6 +3,7 @@ import {ActivatedRoute, Route, Router} from "@angular/router";
 import {Country} from "../Country";
 import {CityService} from "../services/city.service";
 import {City} from "../City";
+import {CountryService} from "../services/country.service";
 
 @Component({
   selector: 'app-cities',
@@ -11,20 +12,25 @@ import {City} from "../City";
 })
 export class CitiesComponent implements OnInit {
   cities: City[] = [];
+  countries: Country[] = [];
   selectedId: number = 0;
+  selectedCountry!: Country;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private cityService: CityService) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private cityService: CityService, private countryService: CountryService) {
   }
 
   ngOnInit(): void {
     this.cityService.getCities().subscribe(data => {
       this.cities = data;
     });
+    this.countryService.getCountries().subscribe(data => {
+      this.countries = data;
+    })
     this.activatedRoute.params.forEach(params => this.selectedId = +params['id']);
   }
 
   selectElement(countryId: number) {
-    this.router.navigate([countryId], {relativeTo: this.activatedRoute});
+    //this.router.navigate([countryId], {relativeTo: this.activatedRoute});
     this.selectedId = countryId;
   }
 
@@ -40,7 +46,7 @@ export class CitiesComponent implements OnInit {
   }
 
   deleteCity() {
-    //let country = this.countryService.getCountry(this.selectedId);
-    //this.countryService.deleteCountry(this.selectedId).subscribe();
+    this.cityService.deleteCity(this.selectedId).subscribe();
+    document.location.href = "http://localhost:4200/cities";
   }
 }

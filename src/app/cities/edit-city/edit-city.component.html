@@ -7,7 +7,7 @@
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Name:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" [ngClass]="{'is-invalid':!isValid('name')}" name="name" formControlName="name" value="{{city.name}}">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid':!isValid('name')}" name="name" formControlName="name">
         </div>
         <div class="invalid-feedback" *ngIf="!isValid('name','required')">
           The field must be filled
@@ -16,31 +16,37 @@
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Country:</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" name="countryId" formControlName="countryId" value="{{city.countryId}}">
+          <select class="browser-default custom-select form-control mySelect form-select" name="countryId" formControlName="countryId">
+            <option value="0" disabled>All countries</option>
+            <option *ngFor="let country of countries" value="{{country.id}}">{{country.name}}</option>
+          </select>
         </div>
       </div>
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Founded:</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" name="founded" formControlName="founded" value="{{city.founded}}">
+          <input type="number" class="form-control" name="founded" formControlName="founded">
         </div>
       </div>
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Popular places:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="popularPlaces" formControlName="popularPlaces" value="{{city.popularPlaces}}">
+          <input type="text" class="form-control" name="popularPlaces" formControlName="popularPlaces">
         </div>
       </div>
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Is capital:</label>
         <div class="col-sm-10">
-          <input type="checkbox" class="" name="isCapital" formControlName="isCapital" value="{{city.isCapital}}">
+          <input type="checkbox" class="" name="isCapital" formControlName="isCapital">
         </div>
       </div>
       <div class="mb-3 row">
         <label class="col-sm-2 col-form-label">Description:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="description" formControlName="description" value="{{city.description}}">
+          <input type="text" class="form-control" [ngClass]="{'is-invalid':!isValid('description')}" name="description" formControlName="description">
+        </div>
+        <div class="invalid-feedback" *ngIf="!isValid('description','maxlength')">
+          The maximum length is 255
         </div>
       </div>
       <div class="mb-3 row">
